@@ -1,0 +1,116 @@
+.memeCloud-addbtn{
+    background-color: #003399;
+    color: #002266;
+    font-weight: bolder;
+    position: absolute;
+    top: 3px; 
+    right: 3px;
+    border-radius: 4px;
+    padding: 0 4px;
+}
+
+.memeCloud-addbtn:hover{
+    background-color: #0055ff;
+    color: #80aaff;
+}
+
+
+#memeCloud{
+    z-index: 99999;
+    color:white; 
+    width: 360px;
+    position: fixed; 
+    top: 0;
+}
+
+.memeCloud-sidetab {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    background-color: #373737;
+    font-size: 13px;
+    opacity: 0.7;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.memeCloud-panel {
+    width: 320px;
+    position: absolute;
+    left: 40px;
+    top: 0;
+    background-color: #333;
+    height: 100vh;
+    text-align: center;
+    overflow: scroll;
+}
+
+.memeCloud-logo {
+    width: 100px;
+    margin-top: 15px;
+    transform: rotate(20deg);
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 4000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+.memeCloud-form > * {
+    margin-top: 5px;
+}
+
+.memeCloud-formfield {
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid #090;
+}
+
+.memeCloud-formfield:focus {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #c00;
+}
+
+.memeCloud-btn {
+    color: #fff;
+    background-color: #003399;
+    border: none;
+    padding: 5px;
+}
+
+.memeCloud-memeContainer > img {
+    margin-top: 2vh;
+    width: 200px;
+}
+
+.memeCloud-backButton {
+    float: left;
+}
+
+.memeCloud-logoutButton {
+    float: right;
+}
+
+@-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+

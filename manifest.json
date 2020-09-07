@@ -1,0 +1,29 @@
+{
+    "name": "Memonator",
+    "version": "1.0",
+    "description": "Bedzie memicznie!",
+	"manifest_version": 2,
+	"background": {
+		"scripts": [
+			"jquery-3.5.1.js",
+			"const/actions.js",
+			"classes/Connection.js",
+		  	"background.js"
+		]
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"css": ["style.css"],
+			"js": [
+				"jquery-3.5.1.js",
+				"const/actions.js",
+				"memonator.js"
+			]
+		}
+	],
+	"permissions": [
+		"cookies",
+		"*://*/"
+	]
+  }
