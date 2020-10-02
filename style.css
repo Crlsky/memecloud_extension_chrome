@@ -85,11 +85,29 @@
     width: 200px;
 }
 
+.memeCloud-nav {
+    display: flow-root;
+}
+
 .memeCloud-backButton {
     float: left;
 }
 
 .memeCloud-logoutButton {
+    float: right;
+}
+
+.memeCloud-localizations {
+    overflow: auto;
+    text-align: left;
+    max-height: 10vh;
+}
+
+.memeCloud-directory {
+    display: inline-block;
+}
+
+.memeCloud-directorySettings {
     float: right;
 }
 
