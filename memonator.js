@@ -17,16 +17,15 @@ function getContent(id_parent = null) {
 
         ($('.memeCloud-currentLocalization').val() == -420 ? $('.memeCloud-backButton').attr('style','display:none') : $('.memeCloud-backButton').attr('style','display: inline-block'));
 
-        $('.memeCloud-memeContainer').each(function(){
-            $(this).remove();
-        })
+        $('.memeCloud-memes').empty();
+        $('.memeCloud-localizations').empty();
 
         $(call.path).each(function(){
-            $('.memeCloud-panel').append('<div class="memeCloud-memeContainer memeCloud-directory" data-id="'+this.id+'">'+this.name+'📁 <span>. . .</span></div>') 
+            $('.memeCloud-localizations').append('<div class="memeCloud-directoryRow"><div class="memeCloud-directory" data-id="'+this.id+'">📁 '+this.name+'</div><span class="memeCloud-directorySettings"> ... </span></div>') 
         })
 
         $(call.meme).each(function(index, value){
-            $('.memeCloud-panel').append('<div class="memeCloud-memeContainer"><img class="memeCloud-meme btn" crossorigin="anonymous" id="'+index+'" src="https://memecloud.co/imgs/'+this.checksum+'.jpeg" /></div>');
+            $('.memeCloud-memes').append('<div class="memeCloud-memeContainer"><img class="memeCloud-meme btn" crossorigin="anonymous"  id="'+index+'" src="https://memecloud.co/imgs/'+this.checksum+'.jpeg" /></div>');
         });
     })
 }
@@ -50,12 +49,13 @@ $(document).ready(function(){
                                                                                 +'<img class="memeCloud-logo" src="https://memecloud.co/assets/img/logo_extension.png"/>'
                                                                                 +'<canvas id="memeCloud-canvas" crossorigin="anonymous"></canvas>'
                                                                                 +'<h2>MEMECLOUD.CO</h2>'
-                                                                                +'<img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">'
                                                                                 +'<input type="hidden" class="memeCloud-currentLocalization" value="-420" />'
                                                                                 +'<div class="memeCloud-nav">'
                                                                                     +'<button class="memeCloud-backButton">⬅</button>'
                                                                                     +'<button class="memeCloud-logoutButton"> 🗝 </button>'
                                                                                 +'</div>'
+                                                                                +'<div class="memeCloud-localizations"></div>'
+                                                                                +'<div class="memeCloud-memes"></div>'
                                                                                 +'<div class="memeCloud-form">'
                                                                                     +'<form>'
                                                                                         +'<input type="text" id="memeCloud-login" class="memeCloud-formfield"  placeholder="Login" />'
@@ -63,7 +63,6 @@ $(document).ready(function(){
                                                                                         +'<br /><button class="memeCloud-btn">Sing In</buton>'
                                                                                     +'</form>'
                                                                                 +'</div>'
-                                                                                +'<button class="btn" data-clipboard-action="copy" data-clipboard-target="#1">cpy</button>'
                                                                             +'</div>');
     $('body').append(box);
 })
@@ -84,12 +83,12 @@ $(document).on('click', '.memeCloud-sidetab', function(){
 
         Communication(actions.auth, 'default', function(call){
             if(call === response.Auth){
-                $('.memeCloud-form').attr('style','display:none');
-                $('.memeCloud-nav').attr('style','display:block');
+                $('.memeCloud-form').hide();
+                $('.memeCloud-nav').show();
                 ($('.memeCloud-currentLocalization').val() == -420 ? getContent() : getContent($('.memeCloud-currentLocalization').val()));
             }else{
-                $('.memeCloud-form').attr('style','display:block');
-                $('.memeCloud-nav').attr('style','display:none');
+                $('.memeCloud-form').show();
+                $('.memeCloud-nav').hide();
             }
         });
     }else
@@ -156,6 +155,12 @@ $(document).on('click', '.memeCloud-logoutButton', function(){
         (call==response.logout ? getContent() : '');
     })
 })
+
+$(document).on('click', '.memeCloud-directorySettings', function(){
+    alert('chuj');
+})
+
+
 
 /* fetch do controllera 
 fetch('https://memecloud.co/api/extension', { 
