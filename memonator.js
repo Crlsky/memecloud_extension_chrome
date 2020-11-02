@@ -22,11 +22,11 @@ function getContent(id_parent = null) {
         })
 
         $(call.path).each(function(){
-            $('.memeCloud-panel').append('<div class="memeCloud-memeContainer memeCloud-directory" data-id="'+this.id+'">'+this.name+'📁</div>') 
+            $('.memeCloud-panel').append('<div class="memeCloud-memeContainer memeCloud-directory" data-id="'+this.id+'">'+this.name+'📁 <span>. . .</span></div>') 
         })
 
         $(call.meme).each(function(index, value){
-            $('.memeCloud-panel').append('<div class="memeCloud-memeContainer"><img class="memeCloud-meme btn" id="'+index+'" src="https://memecloud.co/imgs/'+this.checksum+'.jpg" /></div>');
+            $('.memeCloud-panel').append('<div class="memeCloud-memeContainer"><img class="memeCloud-meme btn" crossorigin="anonymous" id="'+index+'" src="https://memecloud.co/imgs/'+this.checksum+'.jpeg" /></div>');
         });
     })
 }
@@ -48,6 +48,7 @@ $(document).ready(function(){
     let box = $('<div id="memeCloud" style="right: -320px;"></div>').html('<div class="memeCloud-sidetab">M</div>'
                                                                             +'<div class="memeCloud-panel">'
                                                                                 +'<img class="memeCloud-logo" src="https://memecloud.co/assets/img/logo_extension.png"/>'
+                                                                                +'<canvas id="memeCloud-canvas" crossorigin="anonymous"></canvas>'
                                                                                 +'<h2>MEMECLOUD.CO</h2>'
                                                                                 +'<img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">'
                                                                                 +'<input type="hidden" class="memeCloud-currentLocalization" value="-420" />'
@@ -122,8 +123,22 @@ $(document).on('click', '.memeCloud-backButton', function(){
     }
 })
 
-$(document).on('click', '.memeCloud-meme', function(){
-    console.log('cpy image');
+$(document).on('click', '.memeCloud-meme', async function(){
+    let c = document.getElementById('memeCloud-canvas');
+    let img = this;
+    
+    c.width = $(img).prop('naturalWidth');
+    c.height = $(img).prop('naturalHeight');
+
+    let ctx = c.getContext("2d");
+    ctx.drawImage(img,10,10);
+
+    c.toBlob(function(blob) {
+        const item = new ClipboardItem({ "image/png": blob });
+        navigator.clipboard.write([item]);
+        alert("Copied! paste it on paint");
+    });
+    
 })
 
 $(document).on('click', '.memeCloud-directory', function(){
