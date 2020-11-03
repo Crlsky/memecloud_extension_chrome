@@ -130,12 +130,12 @@ $(document).on('click', '.memeCloud-meme', async function(){
     c.height = $(img).prop('naturalHeight');
 
     let ctx = c.getContext("2d");
-    ctx.drawImage(img,10,10);
+    ctx.drawImage(img,0,0);
 
     c.toBlob(function(blob) {
         const item = new ClipboardItem({ "image/png": blob });
         navigator.clipboard.write([item]);
-        alert("Copied! paste it on paint");
+        alert("Meme copied!\n Just paste it wherever u want");
     });
     
 })
