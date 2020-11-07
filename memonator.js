@@ -31,7 +31,7 @@ function getContent(id_parent = null) {
 }
 
 $(document).ready(function(){
-    let arr = $("img");
+    let arr = document.getElementsByTagName('img');
 
     for (let index = 0; index < arr.length; ++index) {
         let btn = document.createElement("a");
@@ -70,9 +70,9 @@ $(document).ready(function(){
 $(document).on('click', '.memeCloud-addbtn', function(){
     let url = $(this).data('url');
 
-    Communication(actions.auth, url, function(call){
-        if(call == response.Auth){
-            console.log('dodaje mema i chui');
+    Communication(actions.addmeme, url, function(call){
+        if(call != response.tokenError){
+            console.log(call);
         }
     });
 })

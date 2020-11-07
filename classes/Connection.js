@@ -71,6 +71,16 @@ class Connection {
         })
     }
 
+    logOut(option, callback){
+        chrome.cookies.remove({
+                                "url": this.domain,
+                                "name": this.name
+                                }, function(){
+                                    callback(response.logout);
+                                });
+        
+    }
+
     getContent(id_parent, callback){
         this.getToken(function(token){
             if(token != response.tokenError){
@@ -93,14 +103,26 @@ class Connection {
         })
     }
 
-    logOut(option, callback){
-        chrome.cookies.remove({
-                                "url": this.domain,
-                                "name": this.name
-                                }, function(){
-                                    callback(response.logout);
-                                });
-        
+    addMeme(url, callback){
+        this.getToken(function(token){
+            if(token != response.tokenError){
+                fetch('https://memecloud.co/api/extension/addmeme', { 
+                    method: 'POST', 
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization':  'Bearer '+ token,
+                    }),
+                    body: JSON.stringify({url: url})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    callback(data);
+                });
+
+            }else{
+                callback(response.tokenError); 
+            }
+        })
     }
 }
 /* fetch do controllera 

@@ -3,7 +3,8 @@ const actions = {
     auth:       'authorization',
     signin:     'singIn',
     getcontent: 'getContent',
-    logout:     'logOut'
+    logout:     'logOut',
+    addmeme:    'addmeme'
 };
 
 const response = {

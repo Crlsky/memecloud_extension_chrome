@@ -20,17 +20,24 @@ chrome.runtime.onMessage.addListener(function(msg, sender, Response) {
             })
             break;
 
+        case actions.logout:
+            connection.logOut(msg.options, function(call){
+                Response(call);
+            })
+            break;
+
         case actions.getcontent:
             connection.getContent(msg.options, function(content){
                 Response(content);
             })
             break;
 
-        case actions.logout:
-            connection.logOut(msg.options, function(call){
-                Response(call);
+        case actions.addmeme:
+            connection.addMeme(msg.options, function(content){
+                Response(content);
             })
             break;
+        
     }
 
     return true;
