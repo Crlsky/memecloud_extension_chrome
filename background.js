@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, Response) {
             break;
 
         case actions.addmeme:
-            connection.addMeme(msg.options, function(content){
+            connection.addMeme(msg.options.url, msg.options.name, function(content){
                 Response(content);
             })
             break;

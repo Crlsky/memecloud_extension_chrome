@@ -103,7 +103,7 @@ class Connection {
         })
     }
 
-    addMeme(url, callback){
+    addMeme(url, name, callback){
         this.getToken(function(token){
             if(token != response.tokenError){
                 fetch('https://memecloud.co/api/extension/addmeme', { 
@@ -112,10 +112,13 @@ class Connection {
                         'Content-Type': 'application/json',
                         'Authorization':  'Bearer '+ token,
                     }),
-                    body: JSON.stringify({url: url})
+                    body: JSON.stringify({url: url,
+                                            name: name
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     callback(data);
                 });
 

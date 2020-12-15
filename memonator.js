@@ -21,7 +21,7 @@ function getContent(id_parent = null) {
         $('.memeCloud-localizations').empty();
 
         $(call.path).each(function(){
-            $('.memeCloud-localizations').append('<div class="memeCloud-directoryRow"><div class="memeCloud-directory" data-id="'+this.id+'">📁 '+this.name+'</div><span class="memeCloud-directorySettings"> ... </span></div>') 
+            $('.memeCloud-localizations').append('<div class="memeCloud-directoryRow"><div class="memeCloud-directory" data-id="'+this.id+'">📁 '+this.name+'</div><span class="memeCloud-directorySettings"> ... </span></div>')
         })
 
         $(call.meme).each(function(index, value){
@@ -39,7 +39,7 @@ $(document).ready(function(){
         btn.setAttribute('class','memeCloud-addbtn');
         btn.setAttribute('href','###');
         btn.setAttribute('data-url', arr[index].getAttribute('src'));
-        
+
         if(arr[index].width > 250 && arr[index].height > 250)
             arr[index].parentElement.appendChild(btn);
     }
@@ -58,23 +58,46 @@ $(document).ready(function(){
                                                                                 +'<div class="memeCloud-memes"></div>'
                                                                                 +'<div class="memeCloud-form">'
                                                                                     +'<form>'
-                                                                                        +'<input type="text" id="memeCloud-login" class="memeCloud-formfield"  placeholder="Login" />'
-                                                                                        +'<input type="password" id="memeCloud-passwd" class="memeCloud-formfield" placeholder="Password" autocomplete="on" />'
-                                                                                        +'<br /><button class="memeCloud-btn">Sing In</buton>'
+                                                                                        +'<input type="text" id="memeCloud-login" class="memeCloud-formfield"  placeholder="Login" /><hr>'
+                                                                                        +'<input type="password" id="memeCloud-passwd" class="memeCloud-formfield" placeholder="Password" autocomplete="on" /><hr>'
+                                                                                        +'<button class="memeCloud-btn">Sing In</buton>'
                                                                                     +'</form>'
                                                                                 +'</div>'
                                                                             +'</div>');
     $('body').append(box);
-})
 
-$(document).on('click', '.memeCloud-addbtn', function(){
-    let url = $(this).data('url');
+    //new img lazy loaded or something like that
+    $('img').on('load', function(){
+        let btn = document.createElement("a");
+        btn.innerHTML= "M";
+        btn.setAttribute('class','memeCloud-addbtn');
+        btn.setAttribute('href','###');
+        btn.setAttribute('data-url', $(this).attr('src'));
 
-    Communication(actions.addmeme, url, function(call){
-        if(call != response.tokenError){
-            console.log(call);
+        if($(this).width() > 250 && $(this).height() > 250){
+            $(this).parent().append(btn);
+            console.log($(this).width());
         }
     });
+})
+
+$(document).on('click', '.memeCloud-addbtn', function(event){
+    event.preventDefault();
+    
+    let url = $(this).data('url');
+    let name = prompt("Podaj nawzwe mema");
+
+    let data = {
+                url: url,
+                name: name
+            };
+    if(name){
+        Communication(actions.addmeme, data, function(call){
+            if(call != response.tokenError){
+                console.log(call);
+            }
+        });
+    }
 })
 
 $(document).on('click', '.memeCloud-sidetab', function(){
@@ -125,7 +148,7 @@ $(document).on('click', '.memeCloud-backButton', function(){
 $(document).on('click', '.memeCloud-meme', async function(){
     let c = document.getElementById('memeCloud-canvas');
     let img = this;
-    
+
     c.width = $(img).prop('naturalWidth');
     c.height = $(img).prop('naturalHeight');
 
@@ -137,7 +160,7 @@ $(document).on('click', '.memeCloud-meme', async function(){
         navigator.clipboard.write([item]);
         alert("Meme copied!\n Just paste it wherever u want");
     });
-    
+
 })
 
 $(document).on('click', '.memeCloud-directory', function(){
@@ -162,12 +185,12 @@ $(document).on('click', '.memeCloud-directorySettings', function(){
 
 
 
-/* fetch do controllera 
-fetch('https://memecloud.co/api/extension', { 
-    method: 'POST', 
+/* fetch do controllera
+fetch('https://memecloud.co/api/extension', {
+    method: 'POST',
     headers: new Headers({
         'Authorization':  'Bearer '+ token,
-    }), 
+    }),
     body: url
 })
 .then(response => response.text())
