@@ -31,7 +31,12 @@ function getContent(id_parent = null) {
 }
 
 $(document).ready(function(){
-    
+    renderMemeCloudPanel();
+    makeButtonForImages();
+    makeButtonForLazyLoadedImgs();
+})
+
+function makeButtonForImages(){
     $('img').each(function(){
         let btn = document.createElement("dev");
         btn.innerHTML= "M";
@@ -40,12 +45,28 @@ $(document).ready(function(){
         btn.setAttribute('width', $(this).width());
         btn.setAttribute('heigth', $(this).height());
 
-        if($(this).width() > 250 && $(this).height() > 250){
+        if($(this).width() > 250 && $(this).height() > 250)
             $(this).closest('a').parent().append(btn);
-        }
+        
     });
-    
+}
 
+function makeButtonForLazyLoadedImages() {
+    $('img').on('load', function(){
+        let btn = document.createElement("dev");
+        btn.innerHTML= "M";
+        btn.setAttribute('class','memeCloud-addbtn');
+        btn.setAttribute('data-url', $(this).attr('src'));
+        btn.setAttribute('width', $(this).width());
+        btn.setAttribute('heigth', $(this).height());
+    
+        if($(this).width() > 250 && $(this).height() > 250)
+            $(this).closest('a').parent().append(btn);
+        
+    });
+}
+
+function renderMemeCloudPanel() {
     let box = $('<div id="memeCloud" style="right: -320px;"></div>').html('<div class="memeCloud-sidetab">M</div>'
                                                                             +'<div class="memeCloud-panel">'
                                                                                 +'<img class="memeCloud-logo" src="https://memecloud.co/assets/img/logo_extension.png"/>'
@@ -67,27 +88,13 @@ $(document).ready(function(){
                                                                                 +'</div>'
                                                                             +'</div>');
     $('body').append(box);
+}
 
-    //new img lazy loaded or something like that
-    $('img').on('load', function(){
-        let btn = document.createElement("dev");
-        btn.innerHTML= "M";
-        btn.setAttribute('class','memeCloud-addbtn');
-        btn.setAttribute('data-url', $(this).attr('src'));
-        btn.setAttribute('width', $(this).width());
-        btn.setAttribute('heigth', $(this).height());
-
-        if($(this).width() > 250 && $(this).height() > 250){
-            $(this).closest('a').parent().append(btn);
-        }
-    });
-})
 
 $(document).on('click', '.memeCloud-addbtn', function(event){
     event.preventDefault();
-    console.log('no klikło');
     let url = $(this).data('url');
-    let name = prompt("Podaj nawzwe mema");
+    let name = prompt("Podaj nazwe mema");
 
     let data = {
                 url: url,
