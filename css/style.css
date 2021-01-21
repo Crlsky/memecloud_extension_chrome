@@ -24,18 +24,6 @@
     top: 0;
 }
 
-.memeCloud-sidetab {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 40px;
-    background-color: #373737;
-    font-size: 13px;
-    opacity: 0.7;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-}
 
 .memeCloud-panel {
     width: 320px;
@@ -81,9 +69,14 @@
     padding: 5px;
 }
 
+.memeCloud-memeContainer {
+    margin: 5px;
+}
+
 .memeCloud-memeContainer > img {
     margin-top: 2vh;
     width: 200px;
+    height: 150px;
 }
 
 .memeCloud-nav {
@@ -137,3 +130,47 @@
     }
 }
 
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 9999; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+.modal-content {
+    background-color: inherit;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+#myBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
