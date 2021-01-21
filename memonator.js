@@ -34,6 +34,7 @@ $(document).ready(function(){
     renderMemeCloudPanel();
     makeButtonForImages();
     makeButtonForLazyLoadedImages();
+    checkLogin();
 })
 
 function makeButtonForImages(){
@@ -63,6 +64,19 @@ function makeButtonForLazyLoadedImages() {
         if($(this).width() > 250 && $(this).height() > 250)
             $(this).closest('a').parent().append(btn);
         
+    });
+}
+
+function checkLogin() {
+    Communication(actions.auth, 'default', function(call){
+        if(call === response.Auth){
+            $('.memeCloud-form').hide();
+            $('.memeCloud-nav').show();
+            ($('.memeCloud-currentLocalization').val() == -420 ? getContent() : getContent($('.memeCloud-currentLocalization').val()));
+        }else{
+            $('.memeCloud-form').show();
+            $('.memeCloud-nav').hide();
+        }
     });
 }
 
@@ -111,7 +125,7 @@ function renderMemeCloudPanel() {
                                                                                     +'</form>'
                                                                                 +'</div>'
                                                                             +'</div>');
-    $('body').append(modal);
+    //$('body').append(modal);
 }
 
 
@@ -138,21 +152,13 @@ $(document).on('click', '.memeCloud-sidetab', function(){
     if($('#memeCloud').attr('style') == 'right: -320px'){
         $('#memeCloud').attr('style', 'right: 0px');
 
-        Communication(actions.auth, 'default', function(call){
-            if(call === response.Auth){
-                $('.memeCloud-form').hide();
-                $('.memeCloud-nav').show();
-                ($('.memeCloud-currentLocalization').val() == -420 ? getContent() : getContent($('.memeCloud-currentLocalization').val()));
-            }else{
-                $('.memeCloud-form').show();
-                $('.memeCloud-nav').hide();
-            }
-        });
+        
     }else
         $('#memeCloud').attr('style', 'right: -320px');
 })
 
-$(document).on('click', '.memeCloud-btn', function(){
+$(document).on('click', '.memeCloud-btn', function(e){
+    e.preventDefault();
     let usr = {
         login: $('#memeCloud-login').val(),
         passwd: $('#memeCloud-passwd').val()

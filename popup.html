@@ -1,5 +1,37 @@
 <html>
-    <body style="width: 780; height: 1200;">
-        memecloud
+    <head>
+        <script src="lib/jquery-3.5.1.js"></script>
+        <script src="lib/bootstrap.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="const/actions.js"></script>
+        <script src="classes/Connection.js"></script>
+        <script src="background.js"></script>
+        <script src="memonator.js"></script>
+    </head>
+    <body style="width: 780; height: 1200; background-color: transparent;">
+        <div class="header">
+            <h2>MEMECLOUD.CO</h2>
+            <img class="memeCloud-logo" src="https://memecloud.co/assets/img/logo.png"/>
+            <canvas id="memeCloud-canvas" crossorigin="anonymous"></canvas>
+            <input type="hidden" class="memeCloud-currentLocalization" value="-420" />
+            <div class="memeCloud-nav">
+                <button class="memeCloud-backButton">⬅</button>
+                <button class="memeCloud-logoutButton"> 🗝 </button>
+            </div>
+        </div>
+        <div class="body">
+            <div class="memeCloud-localizations"></div>
+            <div class="memeCloud-memes"></div>
+            <div class="memeCloud-form">
+                <form>
+                    <input type="text" id="memeCloud-login" class="memeCloud-formfield"  placeholder="Login" /><hr>
+                    <input type="password" id="memeCloud-passwd" class="memeCloud-formfield" placeholder="Password" autocomplete="on" /><hr>
+                    <button class="memeCloud-btn">Sing In</buton>
+                </form>
+            </div>
+        </div>
+        <div class="footer">
+        </div>
     </body>
 </html>
