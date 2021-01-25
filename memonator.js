@@ -76,7 +76,7 @@ function getContent(id_parent = null) {
 
         $(call.meme).each(function(index, value){
             console.log(this);
-            $('.flexItemParentMemes').append('<span class="memeCloud-memeContainer"><img class="memeCloud-meme btn" crossorigin="anonymous"  id="'+index+'" src="https://memecloud.co/imgs/'+this.checksum+'.jpeg" /></span>');
+            $('.flexItemParentMemes').append(renderMeme(this.name, this.checksum));
         });
     })
 }
@@ -96,8 +96,17 @@ function renderDirectory(id, name) {
     return dir;
 }
 
-function renderMeme(id, name, checksum) {
+function renderMeme(name, checksum) {
+    let memeHTML =   '<div class="pathItemMeme rounded flex-item ml-2 mr-2 mb-3" data-meme-id="11">'+
+                    '<div class="pathItemMemeDiv rounded-top w-100">'+
+                        '<img class="singleMemeImg rounded-top" rel="lytebox" src="https://memecloud.co/imgs/'+checksum+'.jpeg">'+
+                    '</div>'+  
+                    '<div class="directoryMemeNameDiv rounded-bottom">'+
+                        '<span>'+name+'</span>'+
+                    '</div>'+
+                '</div>';
 
+    return memeHTML;
 }
 
 $(document).on('click', '.memeCloud-addbtn', function(event){
