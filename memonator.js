@@ -67,7 +67,7 @@ function getContent(id_parent = null) {
 
         ($('.memeCloud-currentLocalization').val() == -420 ? $('.memeCloud-backButton').attr('style','display:none') : $('.memeCloud-backButton').attr('style','display: inline-block'));
 
-        $('.memeCloud-memes').empty();
+        $('.flexItemParentMemes').empty();
         $('.flexItemParentPaths').empty();
 
         $(call.path).each(function(){
@@ -75,13 +75,14 @@ function getContent(id_parent = null) {
         })
 
         $(call.meme).each(function(index, value){
-            $('.memeCloud-memes').append('<span class="memeCloud-memeContainer"><img class="memeCloud-meme btn" crossorigin="anonymous"  id="'+index+'" src="https://memecloud.co/imgs/'+this.checksum+'.jpeg" /></span>');
+            console.log(this);
+            $('.flexItemParentMemes').append('<span class="memeCloud-memeContainer"><img class="memeCloud-meme btn" crossorigin="anonymous"  id="'+index+'" src="https://memecloud.co/imgs/'+this.checksum+'.jpeg" /></span>');
         });
     })
 }
 
 function renderDirectory(id, name) {
-    let dir =   '<div class="dirItemsContext dirItem rounded flex-item">'+
+    let dir =   '<div class="m-2 dirItem rounded flex-item">'+
                     '<a class="dirRoute">'+
                         '<div class="directoryImgDiv h-100">'+
                             '<svg class="svg-inline--fa fa-folder fa-w-16 directoryImg fa-2x" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="folder" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 128H272l-64-64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48z"></path></svg>'+
@@ -90,7 +91,6 @@ function renderDirectory(id, name) {
                             '<span data-id="'+id+'">' + name + '</span>'+
                         '</div>'+
                     '</a>'+
-                    '<div class="directorySetting">S</div>'
                 '</div>';
 
     return dir;
@@ -174,14 +174,15 @@ $(document).on('click', '.memeCloud-meme', async function(){
 
 })
 
-$(document).on('click', '.memeCloud-directory', function(){
+$(document).on('click', '.dirItem', function(){
     let currentLocalization = $('.memeCloud-currentLocalization').val();
+    let localization = $(this).find('span').attr('data-id');
 
     if(currentLocalization != -420)
         prevLocalization.push(currentLocalization);
 
-    $('.memeCloud-currentLocalization').val($(this).data('id'));
-    getContent($(this).data('id'));
+    $('.memeCloud-currentLocalization').val(localization);
+    getContent(localization);
 })
 
 $(document).on('click', '.memeCloud-logoutButton', function(){
@@ -189,48 +190,6 @@ $(document).on('click', '.memeCloud-logoutButton', function(){
         (call==response.logout ? getContent() : '');
     })
 })
-
-$(document).on('click', '.memeCloud-directorySettings', function(){
-    alert('chuj');
-})
-
-
-
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// When the user clicks on <span> (x), close the modal
-$(document).on('click','.close', () => {
-    $('#myModal').toggle();
-})
-
-// When the user clicks on the button, open the modal
-$(document).on('click', '#myBtn', () => {
-    Communication(actions.auth, 'default', function(call){
-        if(call === response.Auth){
-            $('.memeCloud-form').hide();
-            $('.memeCloud-nav').show();
-            ($('.memeCloud-currentLocalization').val() == -420 ? getContent() : getContent($('.memeCloud-currentLocalization').val()));
-        }else{
-            $('.memeCloud-form').show();
-            $('.memeCloud-nav').hide();
-        }
-    });
-
-    $('#myModal').toggle();
-})
-
-// When the user clicks anywhere outside of the modal, close it
-$(document).on('click', '#myModal', (e) => {
-    if($(e.target).hasClass('modal') === false)
-        return;
-    
-    $('#myModal').toggle();
-})
-
 
 
 
