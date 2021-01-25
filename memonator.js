@@ -8,30 +8,7 @@ function Communication(method, options, callback){
     });
 }
 
-function getContent(id_parent = null) {
-    Communication(actions.getcontent, id_parent, function(call){
-        if(call==response.tokenError) {
-            $('.memeCloud-form').attr('style','display:block');
-            $('.memeCloud-nav').attr('style','display:none');
-        }
-
-        ($('.memeCloud-currentLocalization').val() == -420 ? $('.memeCloud-backButton').attr('style','display:none') : $('.memeCloud-backButton').attr('style','display: inline-block'));
-
-        $('.memeCloud-memes').empty();
-        $('.memeCloud-localizations').empty();
-
-        $(call.path).each(function(){
-            $('.memeCloud-localizations').append('<div class="memeCloud-directoryRow"><div class="memeCloud-directory" data-id="'+this.id+'">📁 '+this.name+'</div><span class="memeCloud-directorySettings"> ... </span></div>')
-        })
-
-        $(call.meme).each(function(index, value){
-            $('.memeCloud-memes').append('<span class="memeCloud-memeContainer"><img class="memeCloud-meme btn" crossorigin="anonymous"  id="'+index+'" src="https://memecloud.co/imgs/'+this.checksum+'.jpeg" /></span>');
-        });
-    })
-}
-
 $(document).ready(function(){
-    renderMemeCloudPanel();
     makeButtonForImages();
     makeButtonForLazyLoadedImages();
     checkLogin();
@@ -80,54 +57,48 @@ function checkLogin() {
     });
 }
 
-function renderMemeCloudPanel() {
+function getContent(id_parent = null) {
+    Communication(actions.getcontent, id_parent, function(call){
+        if(call==response.tokenError) {
+            $('.memeCloud-form').attr('style','display:block');
+            $('.memeCloud-nav').attr('style','display:none');
+            return 0;
+        }
 
-    let modal = $('<button id="myBtn">Open Modal</button><div id="myModal" class="modal">'
-                    +'<div class="modal-content">'
-                        +'<div class="modal-header">'
-                            +'<h2>MEMECLOUD.CO</h2>'
-                            +'<img class="memeCloud-logo" src="https://memecloud.co/assets/img/logo.png"/>'
-                            +'<canvas id="memeCloud-canvas" crossorigin="anonymous"></canvas>'
-                            +'<input type="hidden" class="memeCloud-currentLocalization" value="-420" />'
-                            +'<div class="memeCloud-nav">'
-                                +'<button class="memeCloud-backButton">⬅</button>'
-                                +'<button class="memeCloud-logoutButton"> 🗝 </button>'
-                            +'</div>'
-                        +'</div>'
-                        +'<div class="modal-body">'
-                            +'<div class="memeCloud-localizations"></div>'
-                            +'<div class="memeCloud-memes"></div>'
-                            +'<div class="memeCloud-form">'
-                                +'<form>'
-                                    +'<input type="text" id="memeCloud-login" class="memeCloud-formfield"  placeholder="Login" /><hr>'
-                                    +'<input type="password" id="memeCloud-passwd" class="memeCloud-formfield" placeholder="Password" autocomplete="on" /><hr>'
-                                    +'<button class="memeCloud-btn">Sing In</buton>'
-                                +'</form>'
-                            +'</div>'
-                        +'</div>'
-                        +'<div class="modal-footer">'
-                        +'</div>'
-                        
-                    +'</div>'
-                
-                +'</div>');
+        ($('.memeCloud-currentLocalization').val() == -420 ? $('.memeCloud-backButton').attr('style','display:none') : $('.memeCloud-backButton').attr('style','display: inline-block'));
 
-    let box = $('<div id="memeCloud" style="right: -320px;"></div>').html('<div class="memeCloud-sidetab">M</div>'
-                                                                            +'<div class="memeCloud-panel">'
-                                                                                
-                                                                                +'<div class="memeCloud-localizations"></div>'
-                                                                                +'<div class="memeCloud-memes"></div>'
-                                                                                +'<div class="memeCloud-form">'
-                                                                                    +'<form>'
-                                                                                        +'<input type="text" id="memeCloud-login" class="memeCloud-formfield"  placeholder="Login" /><hr>'
-                                                                                        +'<input type="password" id="memeCloud-passwd" class="memeCloud-formfield" placeholder="Password" autocomplete="on" /><hr>'
-                                                                                        +'<button class="memeCloud-btn">Sing In</buton>'
-                                                                                    +'</form>'
-                                                                                +'</div>'
-                                                                            +'</div>');
-    //$('body').append(modal);
+        $('.memeCloud-memes').empty();
+        $('.flexItemParentPaths').empty();
+
+        $(call.path).each(function(){
+            $('.flexItemParentPaths').append(renderDirectory(this.id, this.name));
+        })
+
+        $(call.meme).each(function(index, value){
+            $('.memeCloud-memes').append('<span class="memeCloud-memeContainer"><img class="memeCloud-meme btn" crossorigin="anonymous"  id="'+index+'" src="https://memecloud.co/imgs/'+this.checksum+'.jpeg" /></span>');
+        });
+    })
 }
 
+function renderDirectory(id, name) {
+    let dir =   '<div class="dirItemsContext dirItem rounded flex-item">'+
+                    '<a class="dirRoute">'+
+                        '<div class="directoryImgDiv h-100">'+
+                            '<svg class="svg-inline--fa fa-folder fa-w-16 directoryImg fa-2x" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="folder" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 128H272l-64-64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48z"></path></svg>'+
+                        '</div>'+
+                        '<div class="directoryPathNameDiv h-100">'+
+                            '<span data-id="'+id+'">' + name + '</span>'+
+                        '</div>'+
+                    '</a>'+
+                    '<div class="directorySetting">S</div>'
+                '</div>';
+
+    return dir;
+}
+
+function renderMeme(id, name, checksum) {
+
+}
 
 $(document).on('click', '.memeCloud-addbtn', function(event){
     event.preventDefault();

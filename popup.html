@@ -9,29 +9,44 @@
         <script src="background.js"></script>
         <script src="memonator.js"></script>
     </head>
-    <body style="width: 780; height: 1200; background-color: transparent;">
-        <div class="header">
-            <h2>MEMECLOUD.CO</h2>
-            <img class="memeCloud-logo" src="https://memecloud.co/assets/img/logo.png"/>
-            <canvas id="memeCloud-canvas" crossorigin="anonymous"></canvas>
-            <input type="hidden" class="memeCloud-currentLocalization" value="-420" />
-            <div class="memeCloud-nav">
-                <button class="memeCloud-backButton">⬅</button>
-                <button class="memeCloud-logoutButton"> 🗝 </button>
+    <body class="memecloud-popup">
+        <div class="m-3 row">
+            <div class="col-6 logo">
+                <img src="https://memecloud.co/assets/img/logo_text.png" width="180px">
+            </div>
+            <div class="col-6 memecloud-search-bar"> 
+                <input type="text" />
             </div>
         </div>
-        <div class="body">
-            <div class="memeCloud-localizations"></div>
-            <div class="memeCloud-memes"></div>
-            <div class="memeCloud-form">
-                <form>
-                    <input type="text" id="memeCloud-login" class="memeCloud-formfield"  placeholder="Login" /><hr>
-                    <input type="password" id="memeCloud-passwd" class="memeCloud-formfield" placeholder="Password" autocomplete="on" /><hr>
-                    <button class="memeCloud-btn">Sing In</buton>
-                </form>
+        <div class="memeCloud-nav">
+            <button class="memeCloud-backButton">⬅</button>
+            <button class="memeCloud-logoutButton"> 🗝 </button>
+        </div>
+        <div class="container d-flex align-items-center">
+            <div class="memePanelDiv d-flex justify-content-center">
+                <div class="memePanelMainDiv rounded">
+                    <span class="memeSectionTitleDir mb-3 ml-2">Directories</span>
+                    <div class="flexItemParentPaths flexItemsParent justify-content-start flex-wrap mb-5">
+
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="footer">
+        <div class="memeCloud-memes"></div>
+        <div class="memeCloud-form">
+            <form>
+                <input type="text" id="memeCloud-login" class="memeCloud-formfield"  placeholder="Login" /><hr>
+                <input type="password" id="memeCloud-passwd" class="memeCloud-formfield" placeholder="Password" autocomplete="on" /><hr>
+                <button class="memeCloud-btn">Sing In</buton>
+            </form>
         </div>
+
+        <canvas id="memeCloud-canvas" crossorigin="anonymous"></canvas>
+        <input type="hidden" class="memeCloud-currentLocalization" value="-420" />
+        
+
+        
+
+     
     </body>
 </html>

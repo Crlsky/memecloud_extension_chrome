@@ -1,3 +1,57 @@
+.memecloud-popup {
+    width: 780px;
+    background-color: #35363a;
+    color: #fff;
+}
+
+.memecloud-search-bar {
+    text-align: right;
+}
+
+.memeSectionTitleDir {
+    text-align: left;
+    display: block;
+    font-weight: 500;
+}
+
+.flexItemsParent {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill,minmax(220px,1fr)) !important;
+}
+
+.directoryImgDiv {
+    width: 20%;
+    float: left;
+    padding: 5px 12px;
+}
+
+.directoryImg {
+    float: left;
+    color: #fff;
+}
+
+.dirRoute {
+    color: #fff;
+}
+
+.dirItem {
+    height: 45px;
+    background-color: #17252A;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15), 0 2px 2px rgba(0,0,0,0.15), 0 4px 4px rgba(0,0,0,0.15), 0 8px 8px rgba(0,0,0,0.15);
+}
+
+.directoryPathNameDiv {
+    float: left;
+}
+
+.directorySetting{
+    float: right;
+}
+
+a {
+    text-decoration: none;
+}
+
 .memeCloud-addbtn{
     background-color: #003399;
     color: #002266;
