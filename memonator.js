@@ -73,11 +73,14 @@ function getContent(id_parent = null) {
         $(call.path).each(function(){
             $('.flexItemParentPaths').append(renderDirectory(this.id, this.name));
         })
-
-        $(call.meme).each(function(index, value){
-            console.log(this);
-            $('.flexItemParentMemes').append(renderMeme(this.name, this.checksum));
-        });
+        
+        if(call.meme != "")
+            $(call.meme).each(function(index, value){
+                console.log(this);
+                $('.flexItemParentMemes').append(renderMeme(this.name, this.checksum));
+            });
+        else
+            $('.flexItemParentMemes').append('<img src="https://memecloud.co/assets/img/tenor.gif" />');
     })
 }
 
@@ -97,7 +100,7 @@ function renderDirectory(id, name) {
 }
 
 function renderMeme(name, checksum) {
-    let memeHTML =   '<div class="pathItemMeme rounded flex-item ml-2 mr-2 mb-3" data-meme-id="11">'+
+    let memeHTML =   '<div class="pathItemMeme rounded flex-item m-2" data-meme-id="11">'+
                     '<div class="pathItemMemeDiv rounded-top w-100">'+
                         '<img class="singleMemeImg rounded-top" rel="lytebox" src="https://memecloud.co/imgs/'+checksum+'.jpeg">'+
                     '</div>'+  
