@@ -168,7 +168,7 @@ $(document).on('click', '.memeCloud-backButton', function(){
     }
 })
 
-$(document).on('click', '.memeCloud-meme', async function(){
+$(document).on('click', '.singleMemeImg', async function(){
     let c = document.getElementById('memeCloud-canvas');
     let img = this;
 
