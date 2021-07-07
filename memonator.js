@@ -70,9 +70,13 @@ function getContent(id_parent = null) {
 
         $('.itemParentMemes').empty();
         $('.itemParentPaths').empty();
+        $('.directoriesHeader').empty();
+
+        if (call.path) {
+            $('.directoriesHeader').append('<span class="mx-2">Directories</span>');
+        }
 
         $(call.path).each(function(){
-            console.log(this);
             $('.itemParentPaths').append(renderDirectory(this.id, this.name));
         })
 
