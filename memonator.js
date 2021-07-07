@@ -48,39 +48,52 @@ function checkLogin() {
     Communication(actions.auth, 'default', function(call){
         if(call === response.Auth){
             $('.memeCloud-form').hide();
-            $('.memeCloud-nav').show();
+            $('.memeCloud-backButton').show();
             ($('.memeCloud-currentLocalization').val() == -420 ? getContent() : getContent($('.memeCloud-currentLocalization').val()));
         }else{
             $('.memeCloud-form').show();
-            $('.memeCloud-nav').hide();
+            $('.memeCloud-backButton').hide();
         }
     });
 }
 
 function getContent(id_parent = null) {
+    $('.pathsTreeBox').empty();
     Communication(actions.getcontent, id_parent, function(call){
         if(call==response.tokenError) {
             $('.memeCloud-form').attr('style','display:block');
             $('.memeCloud-nav').attr('style','display:none');
             return 0;
         }
-
+        
         ($('.memeCloud-currentLocalization').val() == -420 ? $('.memeCloud-backButton').attr('style','display:none') : $('.memeCloud-backButton').attr('style','display: inline-block'));
 
-        $('.flexItemParentMemes').empty();
-        $('.flexItemParentPaths').empty();
+        $('.itemParentMemes').empty();
+        $('.itemParentPaths').empty();
 
         $(call.path).each(function(){
-            $('.flexItemParentPaths').append(renderDirectory(this.id, this.name));
+            console.log(this);
+            $('.itemParentPaths').append(renderDirectory(this.id, this.name));
+        })
+
+        let pathIco = '<span><svg style="color: #fff; pointer-events: none;width:7px;" class="svg-inline--fa fa-angle-right fa-w-8 mx-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg></span>';
+
+        $(call.paths_tree).each(function(){
+            if (this.previous_path_id) {
+                $('.pathsTreeBox').append(pathIco + '<div class="previous_path" data-id="'+this.previous_path_id+'">'+this.previous_path_name+'</div>');
+                $('.pathsTreeBox').append(pathIco + '<div>'+this.current_path_name+'</div>');
+            } else {
+                $('.pathsTreeBox').append(pathIco + '<div>'+this.current_path_name+'</div>');
+            }
+            console.log(this);
         })
         
         if(call.meme != "")
             $(call.meme).each(function(index, value){
-                console.log(this);
-                $('.flexItemParentMemes').append(renderMeme(this.name, this.checksum));
+                $('.itemParentMemes').append(renderMeme(this.name, this.checksum));
             });
         else
-            $('.flexItemParentMemes').append('<img src="https://memecloud.co/assets/img/tenor.gif" />');
+            $('.itemParentMemes').append('<img src="https://memecloud.co/assets/img/tenor.gif" />');
     })
 }
 
@@ -195,6 +208,29 @@ $(document).on('click', '.dirItem', function(){
 
     $('.memeCloud-currentLocalization').val(localization);
     getContent(localization);
+    console.log(prevLocalization);
+})
+
+$(document).on('click', '.pathsTreeItem', function(e){
+    let previousLocalization = prevLocalization[prevLocalization.length - 1];
+    let pathsTreeLocalization = e.target.dataset.id;
+
+    if (pathsTreeLocalization) { 
+        if (previousLocalization != -420 && prevLocalization.indexOf(previousLocalization) >= 0) {
+            let index = prevLocalization.indexOf(previousLocalization);
+            if (index > -1) {
+                prevLocalization.splice(index, 1);
+            }
+        }    
+        $('.memeCloud-currentLocalization').val(previousLocalization);
+        getContent(pathsTreeLocalization);
+        console.log(prevLocalization, previousLocalization);
+    }
+})
+
+$(document).on('click', '.homePathsTreeButton', function(e){
+    $('.memeCloud-currentLocalization').val("-420");
+    getContent();
 })
 
 $(document).on('click', '.memeCloud-logoutButton', function(){

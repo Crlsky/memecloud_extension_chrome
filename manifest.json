@@ -33,5 +33,5 @@
 	"browser_action": {
 		"default_title": "MemeCloud",     
 		"default_popup": "popup.html" 
-	  }
+	}
 }
