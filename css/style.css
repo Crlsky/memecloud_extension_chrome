@@ -276,4 +276,26 @@ a {
 .header-buttons {
     background-color: #17252A;
     cursor: pointer;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15), 
+              0 2px 2px rgba(0,0,0,0.15), 
+              0 4px 4px rgba(0,0,0,0.15), 
+              0 8px 8px rgba(0,0,0,0.15);
+}
+
+.searchBar {
+    display: none;
+}
+
+.searchBarInput {
+    min-width: 300px;
+    color: #fff !important;
+    font-size: 16px !important;
+    background-color: #17252A !important;
+    border: none !important;
+    outline: none;
+    padding: 0 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15), 
+              0 2px 2px rgba(0,0,0,0.15), 
+              0 4px 4px rgba(0,0,0,0.15), 
+              0 8px 8px rgba(0,0,0,0.15);
 }

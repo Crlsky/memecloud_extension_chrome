@@ -4,7 +4,8 @@ const actions = {
     signin:     'singIn',
     getcontent: 'getContent',
     logout:     'logOut',
-    addmeme:    'addmeme'
+    addmeme:    'addmeme',
+    searchcontent: 'searchContent',
 };
 
 const response = {

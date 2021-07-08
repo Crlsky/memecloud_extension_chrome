@@ -127,6 +127,29 @@ class Connection {
             }
         })
     }
+
+    searchContent(searchQuerry, callback){
+        console.log(searchQuerry);
+        this.getToken(function(token){
+            if(token != response.tokenError){
+                fetch('https://memecloud.co/api/search/content', { 
+                    method: 'POST', 
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization':  'Bearer '+ token,
+                    }),
+                    body: JSON.stringify({search_querry: searchQuerry})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    callback(data);
+                });
+            } else {
+                callback(response.tokenError); 
+            }
+        })
+    }
 }
 /* fetch do controllera 
 fetch('https://memecloud.co/api/extension', { 

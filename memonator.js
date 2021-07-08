@@ -243,6 +243,53 @@ $(document).on('click', '.memeCloud-logoutButton', function(){
     })
 })
 
+$(document).on('click', '.search-bar-button', function(){
+    if ($('.searchBar').is(":visible") == false)
+        $('.searchBar').show();
+    else   
+        $('.searchBar').hide();  
+})
+
+$(document).on('keyup', '.searchBarInput', function (){
+    if (this.value.length >= 3 || this.value == "") {
+        if (this.value != "") {
+            Communication(actions.searchcontent, this.value, function(content){
+                if(content == response.tokenError) {
+                    $('.memeCloud-form').attr('style','display:block');
+                    $('.memeCloud-nav').attr('style','display:none');
+                    return 0;
+                }
+
+                $('.itemParentMemes').empty();
+                $('.itemParentPaths').empty();
+                $('.directoriesHeader').empty();
+
+                if (content.directories != "") {
+                    $('.directoriesHeader').append('<span class="mx-2">Directories</span>');
+                }
+
+                $(content.directories).each(function(){
+                    $('.itemParentPaths').append(renderDirectory(this.directory_id, this.directory_name));
+                })
+
+                let pathIco = '<span><svg style="color: #fff; pointer-events: none;width:7px;" class="svg-inline--fa fa-angle-right fa-w-8 mx-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg></span>';
+        
+                if(content.memes != "")
+                    $(content.memes).each(function(index, value){
+                        $('.itemParentMemes').append(renderMeme(this.meme_name, this.meme_path));
+                    });
+                else
+                    $('.itemParentMemes').append('<img src="https://memecloud.co/assets/img/tenor.gif" />');
+            })
+        } else {
+            let localization = $('.memeCloud-currentLocalization').val();
+            if(localization == -420)
+                localization = null;
+
+            getContent(localization);
+        }
+    }
+});
 
 
 /* fetch do controllera

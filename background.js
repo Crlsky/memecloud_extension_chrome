@@ -37,6 +37,11 @@ chrome.runtime.onMessage.addListener(function(msg, sender, Response) {
                 Response(content);
             })
             break;
+        case actions.searchcontent:
+            connection.searchContent(msg.options, function(content){
+                Response(content);
+            })    
+            break;
         
     }
 
