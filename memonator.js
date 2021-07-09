@@ -119,7 +119,7 @@ function renderDirectory(id, name) {
 function renderMeme(name, checksum) {
     let memeHTML =   '<div class="pathItemMeme rounded flex-item m-2" data-meme-id="11">'+
                     '<div class="pathItemMemeDiv rounded-top w-100">'+
-                        '<img class="singleMemeImg rounded-top" rel="lytebox" src="https://memecloud.co/imgs/'+checksum+'.jpeg">'+
+                        '<img class="singleMemeImg rounded-top" rel="lytebox" src="https://memecloud.co/imgs/'+checksum+'.png">'+
                     '</div>'+  
                     '<div class="directoryMemeNameDiv rounded-bottom">'+
                         '<span>'+name+'</span>'+
@@ -244,10 +244,10 @@ $(document).on('click', '.memeCloud-logoutButton', function(){
 })
 
 $(document).on('click', '.search-bar-button', function(){
-    if ($('.searchBar').is(":visible") == false)
-        $('.searchBar').show();
+    if ($('.searchBarExtension').is(":visible") == false)
+        $('.searchBarExtension').show();
     else   
-        $('.searchBar').hide();  
+        $('.searchBarExtension').hide();  
 })
 
 $(document).on('keyup', '.searchBarInput', function (){
