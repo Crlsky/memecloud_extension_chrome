@@ -77,9 +77,14 @@ function getContent(id_parent = null) {
         $('.itemParentMemes').empty();
         $('.itemParentPaths').empty();
         $('.directoriesHeader').empty();
+        $('.memesHeader').empty();
 
         if (call.path) {
             $('.directoriesHeader').append('<span class="mx-2">Directories</span>');
+        }
+
+        if (call.meme) {
+            $('.memesHeader').append('<span class="mx-2">Memes</span>');
         }
 
         $(call.path).each(function(){
@@ -102,8 +107,6 @@ function getContent(id_parent = null) {
             $(call.meme).each(function(index, value){
                 $('.itemParentMemes').append(renderMeme(this.name, this.checksum));
             });
-        else
-            $('.itemParentMemes').append('<img src="https://memecloud.co/assets/img/tenor.gif" />');
     })
 }
 
