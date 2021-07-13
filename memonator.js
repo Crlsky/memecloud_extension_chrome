@@ -49,10 +49,16 @@ function checkLogin() {
         if(call === response.Auth){
             $('.memeCloud-form').hide();
             $('.memeCloud-backButton').show();
+            $('.memeCloudNavButtons').show();
+            $('.homePathsTreeButton').show();
+            $('.memeCloudMainBox').show();
             ($('.memeCloud-currentLocalization').val() == -420 ? getContent() : getContent($('.memeCloud-currentLocalization').val()));
         }else{
             $('.memeCloud-form').show();
             $('.memeCloud-backButton').hide();
+            $('.memeCloudNavButtons').attr('style','display: none !important');
+            $('.homePathsTreeButton').hide();
+            $('.memeCloudMainBox').hide();
         }
     });
 }
@@ -291,6 +297,10 @@ $(document).on('keyup', '.searchBarInput', function (){
     }
 });
 
+$(document).on('click', '#goToRegisterPage', function(e){
+    console.log("123123");
+    chrome.tabs.create({url:"https://memecloud.co/register"});
+})
 
 /* fetch do controllera
 fetch('https://memecloud.co/api/extension', {

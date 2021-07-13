@@ -15,7 +15,7 @@
             <div class="col-6 logo">
                 <img src="https://memecloud.co/assets/img/logo_text.png" width="180px">
             </div>
-            <div class="col-6 d-flex align-items-center justify-content-end">
+            <div class="memeCloudNavButtons col-6 d-flex align-items-center justify-content-end">
                 <div class="searchBarExtension mx-1">
                     <input class="searchBarInput rounded" type="text" placeholder="Search by meme or directory name" />
                 </div>
@@ -43,23 +43,25 @@
                 </div>
             </div>
         </div>    
-        
-        <div class="memePanelDir mx-3 mt-3">
-            <div class="rounded">
-                <div class="directoriesHeader">
-                    <span class="mx-2">Directories</span>
-                </div>
-                <div class="itemParentPaths flexItemsParent justify-content-center flex-wrap mb-3">
 
+        <div class="memeCloudMainBox">
+            <div class="memePanelDir mx-3 mt-3">
+                <div class="rounded">
+                    <div class="directoriesHeader">
+                        <span class="mx-2">Directories</span>
+                    </div>
+                    <div class="itemParentPaths flexItemsParent justify-content-center flex-wrap mb-3">
+
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="memePanelMemes mx-3">
-            <div class="rounded">
-                <span class="mx-2">Memes</span>
-                <div class="itemParentMemes flexItemsParent justify-content-center flex-wrap mb-2">
+            <div class="memePanelMemes mx-3">
+                <div class="rounded">
+                    <span class="mx-2">Memes</span>
+                    <div class="itemParentMemes flexItemsParent justify-content-center flex-wrap mb-2">
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,19 +69,15 @@
         
     </div>
         <div class="memeCloud-form">
-            <form>
-                <input type="text" id="memeCloud-login" class="memeCloud-formfield"  placeholder="Login" /><hr>
-                <input type="password" id="memeCloud-passwd" class="memeCloud-formfield" placeholder="Password" autocomplete="on" /><hr>
-                <button class="memeCloud-btn">Sing In</buton>
+            <form class="text-center">
+                <input type="text" id="memeCloud-login" class="memeCloud-formfield w-100 my-2 p-2 rounded text-center"  placeholder="Email" />
+                <input type="password" id="memeCloud-passwd" class="memeCloud-formfield w-100 my-2 p-2 rounded text-center" placeholder="Password" autocomplete="on" />
+                <button class="memeCloud-btn w-100 my-2 rounded">Sing In</button>
+                <span>No account yet? <span id="goToRegisterPage">Sign up!</span></span>
             </form>
         </div>
 
         <canvas id="memeCloud-canvas" crossorigin="anonymous"></canvas>
         <input type="hidden" class="memeCloud-currentLocalization" value="-420" />
-        
-
-        
-
-     
     </body>
 </html>

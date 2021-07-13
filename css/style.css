@@ -146,23 +146,31 @@ a {
     margin-top: 5px;
 }
 
-.memeCloud-formfield {
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid #090;
+.memeCloud-form form {
+    width: 300px;
+    margin: 30px auto;
 }
 
-.memeCloud-formfield:focus {
-    border: none;
-    outline: none;
-    border-bottom: 2px solid #c00;
+.memeCloud-form span span {
+    color: #3AAFA9 !important;
+}
+
+.memeCloud-form form input {
+    background: none;
+    border: solid 1px #fff;
+    color: #fff;
+    font-weight: 500;
 }
 
 .memeCloud-btn {
     color: #fff;
-    background-color: #003399;
+    background-color: #17252A !important;
     border: none;
     padding: 5px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15), 
+              0 2px 2px rgba(0,0,0,0.15), 
+              0 4px 4px rgba(0,0,0,0.15), 
+              0 8px 8px rgba(0,0,0,0.15);
 }
 
 .memeCloud-memeContainer {
