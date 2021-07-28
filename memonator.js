@@ -1,5 +1,11 @@
 let prevLocalization = [-420]
 
+$(document).ready(function(){
+    makeButtonForImages();
+    makeButtonForLazyLoadedImages();
+    checkLogin();
+})
+
 function Communication(method, options, callback){
     chrome.runtime.sendMessage({method: method, options: options}, function(response) {
         if(callback){
@@ -7,12 +13,6 @@ function Communication(method, options, callback){
         }
     });
 }
-
-$(document).ready(function(){
-    makeButtonForImages();
-    makeButtonForLazyLoadedImages();
-    checkLogin();
-})
 
 function makeButtonForImages(){
     $('img').each(function(){
@@ -72,9 +72,9 @@ function getContent(id_parent = null) {
         $('.itemParentPaths').empty();
         $('.directoriesHeader').empty();
 
-        if (call.path) {
+        if(call.path)
             $('.directoriesHeader').append('<span class="mx-2">Directories</span>');
-        }
+        
 
         $(call.path).each(function(){
             $('.itemParentPaths').append(renderDirectory(this.id, this.name));
@@ -119,7 +119,7 @@ function renderDirectory(id, name) {
 function renderMeme(name, checksum) {
     let memeHTML =   '<div class="pathItemMeme rounded flex-item m-2" data-meme-id="11">'+
                     '<div class="pathItemMemeDiv rounded-top w-100">'+
-                        '<img class="singleMemeImg rounded-top" rel="lytebox" src="https://memecloud.co/imgs/'+checksum+'.jpeg">'+
+                        '<img class="singleMemeImg rounded-top" rel="lytebox" src="https://memecloud.co/imgs/'+checksum+'.png">'+
                     '</div>'+  
                     '<div class="directoryMemeNameDiv rounded-bottom">'+
                         '<span>'+name+'</span>'+
@@ -135,9 +135,9 @@ $(document).on('click', '.memeCloud-addbtn', function(event){
     let name = prompt("Podaj nazwe mema");
 
     let data = {
-                url: url,
-                name: name
-            };
+        url: url,
+        name: name};
+        
     if(name){
         Communication(actions.addmeme, data, function(call){
             if(call != response.tokenError && call.code == 200){
@@ -185,24 +185,6 @@ $(document).on('click', '.memeCloud-backButton', function(){
     }
 })
 
-$(document).on('click', '.singleMemeImg', async function(){
-    let c = document.getElementById('memeCloud-canvas');
-    let img = this;
-
-    c.width = $(img).prop('naturalWidth');
-    c.height = $(img).prop('naturalHeight');
-
-    let ctx = c.getContext("2d");
-    ctx.drawImage(img,0,0);
-
-    c.toBlob(function(blob) {
-        const item = new ClipboardItem({ "image/png": blob });
-        navigator.clipboard.write([item]);
-        alert("Meme copied!\n Just paste it wherever u want");
-    });
-
-})
-
 $(document).on('click', '.dirItem', function(){
     let currentLocalization = $('.memeCloud-currentLocalization').val();
     let localization = $(this).find('span').attr('data-id');
@@ -243,6 +225,13 @@ $(document).on('click', '.memeCloud-logoutButton', function(){
     })
 })
 
+$(document).on('click', '.singleMemeImg', async function(event){
+    const response = await fetch('http://pngimg.com/uploads/light/light_PNG14422.png');
+    const blob = await response.blob()
+
+    await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+    alert("Meme copied!\n Just paste it wherever u want");
+})
 
 
 /* fetch do controllera
