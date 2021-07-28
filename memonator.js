@@ -226,7 +226,8 @@ $(document).on('click', '.memeCloud-logoutButton', function(){
 })
 
 $(document).on('click', '.singleMemeImg', async function(event){
-    const response = await fetch('http://pngimg.com/uploads/light/light_PNG14422.png');
+    var url = $(this).attr('src');
+    const response = await fetch(url);
     const blob = await response.blob()
 
     await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
