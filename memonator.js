@@ -176,6 +176,9 @@ $(document).on('click', '.memeCloud-btn', function(e){
     Communication(actions.signin, usr, function(call){
         if(call == response.logged){
             $('.memeCloud-form').attr('style','display:none');
+            $('.memeCloudMainBox').show();
+            $('.homePathsTreeButton').show();
+            $('.memeCloudNavButtons').show();
             getContent();
         }else{
             $('.memeCloud-form').attr('style','display:block');
@@ -230,7 +233,12 @@ $(document).on('click', '.homePathsTreeButton', function(e){
 
 $(document).on('click', '.memeCloud-logoutButton', function(){
     Communication(actions.logout, $(this), function(call){
-        (call==response.logout ? getContent() : '');
+        if(call==response.logout){ 
+            getContent();
+            $('.memeCloudMainBox').hide();
+            $('.homePathsTreeButton').hide();
+            $('.memeCloudNavButtons').attr('style','display:none !important');
+        };
     })
 })
 
